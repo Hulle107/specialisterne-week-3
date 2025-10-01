@@ -11,6 +11,7 @@
   - [🚥 Start](#-start)
     - [🔍 Afhængigheder](#-afhængigheder)
     - [💾 Installering](#-installering)
+    - [🔧 Tilføj environment fil](#-tilføj-environment-fil)
     - [🏃 Kør program](#-kør-program)
   - [🔄 Version historie](#-version-historie)
   - [📝 Noter](#-noter)
@@ -26,8 +27,9 @@ Læs kravspecifikation [her](requirement-specification.md).
 ### 🔍 Afhængigheder
 
 - Node.js 18.18 eller nyere. ([link](https://nodejs.org))
-- Permit.io ([link](https://permit.io))
 - Internetforbindelse
+- Permit.io ([link](https://permit.io))
+- MySQL Server
 
 ### 💾 Installering
 
@@ -40,6 +42,24 @@ npm install -y
 # Bygger applikationen
 npm run build
 ```
+
+### 🔧 Tilføj environment fil
+
+Lav en fil ved navn `.env` i rodmappen.
+
+```ini
+MYSQL_HOST=[mysql-host]
+MYSQL_USER=[mysql-bruger]
+MYSQL_PASS=[mysql-kodeord]
+MYSQL_NAME=[mysql-database-navn]
+
+PERMIT_PDP=[permit-pdp-host]
+PERMIT_TOKEN=[permit-token]
+
+JWT_SECRET=[hemmelig-kode]
+```
+
+Udfyld alle felter med de nødvændige oplysninger.
 
 ### 🏃 Kør program
 
