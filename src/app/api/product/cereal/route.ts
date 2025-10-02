@@ -1,15 +1,21 @@
 import { authentication, authorization, decodeAuthorizationHeader, fetchAuthorizationHeader } from "@/lib/auth";
+import { indexing } from "@/lib/database";
 import { errorHandle } from "@/lib/error";
+import { cerealFetchMany } from "@/models/cereal.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-    return NextResponse.json({ message: "GET: list of cereals" }, { status: 200 });
+    const index = indexing(request.nextUrl.searchParams);
+
+    let cereals = await cerealFetchMany(index);
+
+    return NextResponse.json({ collection: cereals, count: cereals.length, next: index.next, previous: index.previous }, { status: 200 });
 }
 
 export async function POST(request: NextRequest) {
     try {
-        let token = await fetchAuthorizationHeader(request.headers);
-        let auth = await decodeAuthorizationHeader(token);
+        const token = await fetchAuthorizationHeader(request.headers);
+        const auth = await decodeAuthorizationHeader(token);
         await authentication(token);
         await authorization(auth, 'create', 'cereal');
     }
