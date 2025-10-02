@@ -24,6 +24,13 @@ export class NotAuthorized extends Error {
     }
 }
 
+export class NotAuthenticated extends Error {
+    constructor(message: string, error?: Error) {
+        super(message, error);
+        this.name = 'NotAuthenticated';
+    }
+}
+
 /**
  * A `authorization` object.
  */
@@ -112,10 +119,13 @@ export async function authorization(user: AuthUser, action: string, resource: st
 }
 
 /**
- * Create a string to use in the `authorization` header.
+ * Create a `authorization` header with a JSONWebToken.
+ * @param headers - The headers from the request.
  * @param user - The user object representing the user.
- * @returns A string to be used in the `authorization` header.
+ * @returns The token generated.
  */
-export async function createAuthorization(user: AuthUser): Promise<string> {
-    return `Bearer ${jwt.sign(user, jwtSecret())}`;
+export async function createAuthorizationHeader(headers: Headers, user: AuthUser): Promise<string> {
+    let token = jwt.sign(user, jwtSecret());
+    headers.set('Authorization', `Bearer ${token}`);
+    return token;
 }
