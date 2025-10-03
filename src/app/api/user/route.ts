@@ -1,7 +1,7 @@
 import { authentication, authorization, decodeAuthorizationHeader, fetchAuthorizationHeader } from "@/lib/auth";
 import { indexing } from "@/lib/database";
 import { errorHandle } from "@/lib/error";
-import { userFetchMany } from "@/models/user.model";
+import { userCreate, userFetchMany } from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -25,6 +25,12 @@ export async function POST(request: NextRequest) {
         const auth = await decodeAuthorizationHeader(token);
         await authentication(token);
         await authorization(auth, 'update', 'user');
+
+        const data = await request.json();
+        
+        await userCreate(data);
+
+        return NextResponse.json({ message: 'New user has been created' }, { status: 201 });
     }
     catch(error) {
         return errorHandle(error);

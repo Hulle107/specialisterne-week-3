@@ -1,6 +1,6 @@
 import { authentication, authorization, decodeAuthorizationHeader, fetchAuthorizationHeader } from "@/lib/auth";
 import { errorHandle } from "@/lib/error";
-import { userFetch } from "@/models/user.model";
+import { userDelete, userFetch, userUpdate } from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, context: RouteContext<'/api/user/[id]'>) {
@@ -25,6 +25,12 @@ export async function PATCH(request: NextRequest, context: RouteContext<'/api/us
         const auth = await decodeAuthorizationHeader(token);
         await authentication(token);
         await authorization(auth, 'update', 'user');
+        
+        const data = await request.json();
+        
+        await userUpdate(id, data);
+
+        return NextResponse.json({ message: 'User has been updated' }, { status: 202 });
     }
     catch(error) {
         return errorHandle(error);
@@ -38,6 +44,9 @@ export async function DELETE(request: NextRequest, context: RouteContext<'/api/u
         let auth = await decodeAuthorizationHeader(token);
         await authentication(token);
         await authorization(auth, 'delete', 'user');
+        await userDelete(id);
+
+        return NextResponse.json({ message: 'User has been deleted' }, { status: 202 });
     }
     catch(error) {
         return errorHandle(error);

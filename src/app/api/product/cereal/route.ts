@@ -1,7 +1,7 @@
 import { authentication, authorization, decodeAuthorizationHeader, fetchAuthorizationHeader } from "@/lib/auth";
 import { indexing } from "@/lib/database";
 import { errorHandle } from "@/lib/error";
-import { cerealFetchMany } from "@/models/cereal.model";
+import { cerealCreate, cerealFetchMany } from "@/models/cereal.model";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -18,6 +18,12 @@ export async function POST(request: NextRequest) {
         const auth = await decodeAuthorizationHeader(token);
         await authentication(token);
         await authorization(auth, 'create', 'cereal');
+        
+        const data = await request.json();
+        
+        await cerealCreate(data);
+
+        return NextResponse.json({ message: 'New cereal has been created' }, { status: 201 });
     }
     catch(error) {
         return errorHandle(error);
