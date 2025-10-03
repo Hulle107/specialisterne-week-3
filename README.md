@@ -43,6 +43,8 @@ npm install -y
 npm run build
 ```
 
+Kør denne [SQL fil](database-creation.sql) på MySQL serveren, for at opsætte denne.
+
 ### 🔧 Tilføj environment fil
 
 Lav en fil ved navn `.env` i rodmappen.
