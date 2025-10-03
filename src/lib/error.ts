@@ -4,6 +4,13 @@ import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from "jsonwebtok
 import { PermitConnectionError, PermitPDPStatusError } from "permitio";
 import { MySQLConnectionError } from "./database";
 
+export class BadRequest extends Error {
+    constructor(message: string, error?: Error) {
+        super(message, error);
+        this.name = 'BadRequest';
+    }
+}
+
 export class MissingBodyField extends Error {
     constructor(message: string, error?: Error) {
         super(message, error);
@@ -22,8 +29,9 @@ export function errorHandle(error: unknown): NextResponse<{ error: string; }> {
         else console.log(`Error: ${error.name}`);
     }
 
+    if (error instanceof BadRequest) return NextResponse.json({ error: `Bad Request`, message: error.message }, { status: 400 });
     if (error instanceof MissingBodyField) return NextResponse.json({ error: `Bad Request`, message: error.message }, { status: 400 });
-    if (error instanceof NotAuthenticated) return NextResponse.json({ error: `Bad Request`, message: error.message }, { status: 400 })
+    if (error instanceof NotAuthenticated) return NextResponse.json({ error: `Bad Request`, message: error.message }, { status: 400 });
     if (error instanceof MissingAuthorizationHeader) return NextResponse.json({ error: `Unauthorized`, message: error.message }, { status: 401 });
     if (error instanceof SchemeNotSupported) return NextResponse.json({ error: `Unauthorized`, message: error.message }, { status: 401 });
     if (error instanceof JsonWebTokenError) return NextResponse.json({ error: `Unauthorized`, message: error.message }, { status: 401 });

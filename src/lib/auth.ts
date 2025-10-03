@@ -45,8 +45,8 @@ export type Authorization = {
 export type AuthUser = {
     username: string;
     email: string;
-    firstname: string;
-    lastname: string;
+    firstname?: string;
+    lastname?: string;
 }
 
 /**
