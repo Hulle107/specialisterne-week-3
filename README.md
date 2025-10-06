@@ -1,11 +1,11 @@
-# Specialisterne Uge 2
+# Specialisterne Uge 3
 
 ![Version](https://img.shields.io/github/package-json/v/Hulle107/specialisterne-week-2?style=for-the-badge)
 ![License](https://img.shields.io/github/license/Hulle107/specialisterne-week-2?style=for-the-badge)
 
 ## 📚 Indholdsfortegnelse
 
-- [Specialisterne Uge 2](#specialisterne-uge-2)
+- [Specialisterne Uge 3](#specialisterne-uge-3)
   - [📚 Indholdsfortegnelse](#-indholdsfortegnelse)
   - [ℹ️ Beskrivelse](#ℹ️-beskrivelse)
   - [🚥 Start](#-start)
