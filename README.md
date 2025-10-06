@@ -1,7 +1,7 @@
 # Specialisterne Uge 3
 
-![Version](https://img.shields.io/github/package-json/v/Hulle107/specialisterne-week-2?style=for-the-badge)
-![License](https://img.shields.io/github/license/Hulle107/specialisterne-week-2?style=for-the-badge)
+![Version](https://img.shields.io/github/package-json/v/Hulle107/specialisterne-week-3?style=for-the-badge)
+![License](https://img.shields.io/github/license/Hulle107/specialisterne-week-3?style=for-the-badge)
 
 ## 📚 Indholdsfortegnelse
 
